@@ -5,17 +5,17 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-4">
-            <h1>Category</h1>
+            <h1>Product</h1>
           </div>
          
           <div class="col-sm-4">
-            <a href="{{'/admin/category/add'}}" class="btn btn-success">Add Category</a>
+            <a href="{{'/admin/product/add'}}" class="btn btn-success">Add Product</a>
           </div>
           
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">List Project</li>
+              <li class="breadcrumb-item active">List Product</li>
             </ol>
           </div>
         </div>
@@ -41,7 +41,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">List Category</h3>
+                <h3 class="card-title">List Product</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -49,17 +49,33 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Name</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Sku</th>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Category</th>
+                    <th>Discount</th>
+                    <th>Color</th>
                     <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
                   </thead>
                   <tbody>
-                  	@foreach($category as $key => $crud) 
+                  	@foreach($product as $key => $crud) 
                   <tr>
-                    <td scope="row">{{$category->firstItem()+$key}}</td>
-                    <td>{{$crud->name}}</td>
+                    <td scope="row">{{$product->firstItem()+$key}}</td>
+                    <td>{{$crud->title}}</td>
+                    <td>{{$crud->description}}</td>
+                    <td>{{$crud->sku}}</td>
+                    <td><img src="{{asset('image')}}/{{ $crud->image }}" class="mb-2" style="width:100px;height:50px;"></td>
+                    <td>{{$crud->price}}</td>
+                    <td>{{$crud->qty}}</td>
+                    <td>{{$crud->category->name}}</td>
+                    <td>{{$crud->discount}}</td>
+                    <td>{{$crud->color}}</td>
                     <td>
                     @if($crud->status =='0')
                       Active
@@ -79,12 +95,12 @@
                   
                 </table>
                 <div class="text-center" style="font-size:xx-large;">
-                  @if ($category->isEmpty())
+                  @if ($product->isEmpty())
                   No Record Found
                   @endif
                 </div>
                 <div class="d-flex" style="margin:20px;">
-                  {!! $category->withQueryString()->links() !!}
+                  {!! $product->withQueryString()->links() !!}
                 </div>
               </div>
               <!-- /.card-body -->
@@ -134,7 +150,7 @@
 
         function confirmDelete(id) {
             $.ajax({
-                url: '{{ url('/admin/category/delete') }}/' + id,
+                url: '{{ url('/admin/product/delete') }}/' + id,
                 //console.log('tejas');
                 type: 'post',
                 headers: {

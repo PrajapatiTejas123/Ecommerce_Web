@@ -21,7 +21,7 @@
 </div>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{'/admin/dashboard'}}" class="nav-link">
               <i class="nav-icon far fa-user"></i>
               <p>
                 Dashboard
@@ -30,7 +30,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{'/admin/product/list'}}" class="nav-link">
               <i class="nav-icon far fa-user"></i>
               <p>
                 Product Management
@@ -39,7 +39,7 @@
           </li>
         
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{'/admin/category/list'}}" class="nav-link">
               <i class="nav-icon far fa-edit"></i>
               <p>
                 Category Management

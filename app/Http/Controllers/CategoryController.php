@@ -9,8 +9,9 @@ use Auth;
 class CategoryController extends Controller
 {
     public function index() {
-        //$category = $category->latest()->paginate(4);
         $category = Category::all();
+        $category = Category::latest()->paginate(2);
+        // $category = $category->latest()->paginate(2);
         return view('category.listcategory',compact('category'));
     }
 
@@ -32,12 +33,34 @@ class CategoryController extends Controller
             $category->status = $request->status;
             $category->created_by = Auth::user()->id;
             $category->save();
-            return redirect()->route('category/list')->with('success','Category Added Successfully.'); 
+            return redirect()->route('list')->with('success','Category Added Successfully.'); 
+    }
+
+    public function edit($id){
+        $category=Category::find($id); 
+        return view('category.editcategory',compact('category'));
+    }
+
+    public function update(Request $request,$id) { 
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ],
+        [
+            'name.required'=>'Please Enter Category Name',
+            'status.required'=>'Please Select Status'
+        ]);
+        $category = Category::find($id);
+            $category->name = $request->name;
+            $category->status = $request->status;
+            $category->created_by = Auth::user()->id;
+        $category->save();
+            return redirect()->route('list')->with('success','Category Update Successfully.'); 
     }
 
     public function destroy($id){
         $category=Category::find($id);  
         $category->delete();
-        return redirect()->route('category/list')->with('success', 'Category Deleted Successfully.');
+        return redirect()->route('list')->with('success', 'Category Deleted Successfully.');
     }
 }
