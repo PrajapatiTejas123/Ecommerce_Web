@@ -16,10 +16,13 @@ use App\Http\Middleware\Admin;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 Route::get('/', function () {
-    return redirect('login');
+    return view('welcome');
 });
+
+// Route::get('/', function () {
+//     return redirect('login');
+// });
 Route::get('/admin', function () {
     return view('admin-lte.mainadmin');
 });
