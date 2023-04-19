@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +41,17 @@ Route::prefix('admin')->group(function(){
     Route::get('product/add',[ProductController::class,'addproduct'])->name('product/add');
     Route::post('product/insertproduct',[ProductController::class,'store'])->name('insertproduct');
     Route::get('product/list',[ProductController::class,'index'])->name('product/list');
+    Route::get('product/editproduct/{id}',[ProductController::class,'edit'])->name('editproduct');
+    Route::post('product/update/{id}',[ProductController::class,'update'])->name('updateproduct');
     Route::post('product/delete/{id}',[ProductController::class,'destroy'])->name('product/delete');
+
+    //userroute
+    Route::get('user/add',[UserController::class,'adduser'])->name('add')->middleware('admin','auth');
+    Route::post('user/insertuser',[UserController::class,'store'])->name('insertuser')->middleware('admin','auth');
+    Route::get('user/list',[UserController::class,'show'])->name('user/list','auth');
+    Route::get('user/edit/{id}',[UserController::class,'edituser'])->name('edituser')->middleware('admin');
+    Route::post('user/update/{id}',[UserController::class,'updateuser'])->name('updateuser')->middleware('admin');
+    Route::post('user/delete/{id}',[UserController::class,'destroy'])->name('user/delete')->middleware('admin');
 });
 
 Auth::routes();

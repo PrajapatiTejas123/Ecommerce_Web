@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +24,11 @@ class User extends Authenticatable
         'email',
         'password',
         'contact',
-        'Address',
+        'address',
+        'dob',
+        'gender',
+        'active',
+        'roles',
         'created_by',
         'updated_by',
     ];

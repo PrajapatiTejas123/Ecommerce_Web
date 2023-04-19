@@ -6,6 +6,7 @@
 <div class="btn-group">
   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     
+  
     <div class="dropdown-menu">
     <a class="dropdown-item"  href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -17,6 +18,7 @@
                                         @csrf
                                     </form>
   </div>
+  
   </button>
 </div>
 
@@ -48,7 +50,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{'/admin/user/list'}}" class="nav-link">
               <i class="nav-icon far fa-edit"></i>
               <p>
                 User Management
