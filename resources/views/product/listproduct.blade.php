@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-primary mt-2">
+            <div class="alert alert-success mt-2">
                {{ $message }}
             </div>
           </div>
@@ -49,10 +49,10 @@
                   <thead>
                   <tr>
                     <th>Id</th>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Sku</th>
-                    <th>Image</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Category</th>
@@ -67,10 +67,10 @@
                   	@foreach($product as $key => $crud) 
                   <tr>
                     <td scope="row">{{$product->firstItem()+$key}}</td>
+                    <td><img src="{{asset('image')}}/{{ $crud->image }}" class="mb-2" style="width:75px;height:50px;"></td>
                     <td>{{$crud->title}}</td>
                     <td>{{$crud->description}}</td>
                     <td>{{$crud->sku}}</td>
-                    <td><img src="{{asset('image')}}/{{ $crud->image }}" class="mb-2" style="width:100px;height:50px;"></td>
                     <td>{{$crud->price}}</td>
                     <td>{{$crud->qty}}</td>
                     <td>{{$crud->category->name}}</td>
@@ -83,7 +83,7 @@
                       Inactive
                     @endif
                     </td>
-                    <td><a href="{{ route('edit',$crud->id)}}"><i class="fa fa-edit" style="font-size:28px; color:green;"></i></a> </td>
+                    <td><a href="{{ route('editproduct',$crud->id)}}"><i class="fa fa-edit" style="font-size:28px; color:green;"></i></a> </td>
                     <td>
                     <button type="button" class="btn btn-danger"
                     onclick="loadDeleteModal({{ $crud->id }}, `{{ $crud->username }}`)">Delete
@@ -140,6 +140,14 @@
                 </div>
             </div>
         </div>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+          $(".alert").delay(5000).slideUp(300);
+    });
+
+    </script>
 
  <script>
         function loadDeleteModal(id, name) {
@@ -171,6 +179,7 @@
             });
         }
     </script>
+
 
 
 @endsection

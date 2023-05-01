@@ -5,10 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\User;
+use App\Models\Productwishlist;
 use Auth;
 
 class ProductController extends Controller
 {
+   public function indexuser(){
+         $product = Product::latest()->paginate(4);
+        return view('welcome',compact('product'));
+   }
 
     public function index() {
         $product = Product::all();
@@ -118,5 +124,31 @@ class ProductController extends Controller
         $product = Product::find($id)->delete();
         return redirect()->back()->with('success','Product delete Successfully.');
 
+    }
+
+
+    // public function myfavourite()
+    // {
+    //     $product = Product::all();
+    //     return view('wishlist',compact('product'));
+    // }
+    public function addwishlist(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            $countwishlist = Productwishlist::countwishlist($data['product_id']);
+
+            $Productwishlist = new Productwishlist;
+            if($countwishlist == 0){
+                $Productwishlist->product_id = $data['product_id'];
+                $Productwishlist->user_id = $data['user_id'];
+                $Productwishlist->save();
+
+                return response()->json(['action' => 'add','message' =>  'Product Added Successfully to wishlist']);
+            }else{
+                Productwishlist::where(['user_id' => Auth::user()->id, 'product_id' => $data['product_id']])->delete();
+                return response()->json(['action' => 'remove','message' =>  'Product Removed Successfully from wishlist']);
+            }
+        }
     }
 }

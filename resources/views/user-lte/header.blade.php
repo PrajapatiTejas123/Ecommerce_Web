@@ -16,31 +16,19 @@
                             Help & FAQs
                         </a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
+                        <!-- <a href="#" class="flex-c-m trans-04 p-lr-25">
                             My Account
-                        </a>
+                        </a> -->
 
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
                             EN
                         </a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
+                        <!-- <a href="#" class="flex-c-m trans-04 p-lr-25">
                             USD
-                        </a>
-                    </div>
-                    @if (Route::has('login'))
-                <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
-                    @auth
-                        <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" style="color:azure;">Log in</a>
+                        </a>  --> 
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" style="color:azure;">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+                    </div>
                 </div>
             </div>
 
@@ -54,27 +42,23 @@
 
                     <!-- Menu desktop -->
                     <div class="menu-desktop">
+
                         <ul class="main-menu">
                             <li class="active-menu">
-                                <a href="index.html">Home</a>
-                                <!-- <ul class="sub-menu">
-                                    <li><a href="index.html">Homepage 1</a></li>
-                                    <li><a href="home-02.html">Homepage 2</a></li>
-                                    <li><a href="home-03.html">Homepage 3</a></li>
-                                </ul> -->
+                                <a href="{{url('/')}}">Home</a>
                             </li>
 
                             <li>
                                 <a href="product.html">Product</a>
                             </li>
 
-                            <li class="label1" data-label1="hot">
+                            <!-- <li class="label1" data-label1="hot">
                                 <a href="shoping-cart.html">Features</a>
                             </li>
 
                             <li>
                                 <a href="blog.html">Blog</a>
-                            </li>
+                            </li> -->
 
                             <li>
                                 <a href="about.html">About</a>
@@ -83,7 +67,31 @@
                             <li>
                                 <a href="contact.html">Contact</a>
                             </li>
+                            @if (Route::has('login'))
+                            @auth
+                            <li>
+                               <button class="btn dropdown-toggle text-dark" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <li style="margin: 0px; color: #333; font-family: poppins-medium; font-size: 14px; margin-top: 18px;">My Account</li>
+                        </button>
+                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a  href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> 
+                        <i class="fa fa-sign-out" style="padding:5px;"></i>Logout</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        <!-- <li><a href="#"><i class="fa fa-user-o"></i> My Profile</a></li>
+                        <li><a href="#"><i class="fa fa-user-o"></i> Change Password</a></li> -->
+                         </ul>
+                         @else
+                        <ul class="header-links pull-right">
+                            <li><a href="{{url('/userlogin')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Login</a></li>
                         </ul>
+                        <ul class="header-links pull-right">
+                            <li><a href="{{url('register')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Register</a></li>
+                        </ul>
+                        </li>
+                            @endauth
+                            @endif
                     </div>  
 
                     <!-- Icon header -->
@@ -167,7 +175,7 @@
 
             <ul class="main-menu-m">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{url('/')}}">Home</a>
                     <ul class="sub-menu-m">
                         <li><a href="index.html">Homepage 1</a></li>
                         <li><a href="home-02.html">Homepage 2</a></li>

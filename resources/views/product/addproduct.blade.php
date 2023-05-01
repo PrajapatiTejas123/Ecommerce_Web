@@ -68,7 +68,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Image</label>
-                  <input type="file" value="{{old('image')}}" name="image" class="form-control" id="exampleInputPassword1" placeholder="">
+                  <input type="file" value="{{old('image')}}" name="image" class="form-control" id="image" placeholder="Enter Image">
                 @error('image')
           			   <span class="text-danger">{{ $message }}</span>
           			@enderror
@@ -153,17 +153,15 @@
                 </div>
               </form>
             </div>
-            <!-- /.card -->
+            
             </div>
-          <!--/.col (left) -->
-          <!-- right column -->
+          
           <div class="col-md-6">
 
           </div>
-          <!--/.col (right) -->
+          
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        
+      </div>
     </section>
-</script> -->
 @endsection

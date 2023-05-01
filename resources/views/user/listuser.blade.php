@@ -56,10 +56,10 @@
                     <th>Gender</th>
                     <th>Status</th>
                     <th>Roles</th>
-                    @if(Auth::user()->roles == 0)
+                    
                     <th>Action</th>
                     <!-- <th>Delete</th> -->
-                    @endif
+                    
                   </tr>
                   </thead>
                   <tbody>
@@ -86,12 +86,12 @@
                     		User
                     	@endif
                     </td>
-                    @if(Auth::user()->roles == 0)
+                    
                     <td><a href="{{ route('edituser',$user->id) }}"><i class="fa fa-edit" style="font-size:28px; color:green;"></i></a> 
                     <button
                     type ="button" class="btn btn-danger btn-sm" onclick="OpenDeleteModal({{ $user->id }})"><i class="fa fa-trash"></i></button>
                     </td>
-                    @endif
+                    
                   </tr>
                   @endforeach 
                   </tbody>
