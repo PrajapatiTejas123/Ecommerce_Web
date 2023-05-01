@@ -25,45 +25,45 @@
           <li class="nav-item">
             <a href="{{'/admin/dashboard'}}" class="nav-link">
               <i class="nav-icon far fa-user"></i>
-              <p>
+              
                 Dashboard
-              </p>
+              
             </a>
           </li>
           
           <li class="nav-item">
             <a href="{{'/admin/product/list'}}" class="nav-link">
               <i class="nav-icon far fa-user"></i>
-              <p>
+              
                 Product Management
-              </p>
+              
             </a>
           </li>
         
           <li class="nav-item">
             <a href="{{'/admin/category/list'}}" class="nav-link">
               <i class="nav-icon far fa-edit"></i>
-              <p>
+              
                 Category Management
-              </p>
+              
             </a>
           </li>
 
           <li class="nav-item">
             <a href="{{'/admin/user/list'}}" class="nav-link">
               <i class="nav-icon far fa-edit"></i>
-              <p>
+              
                 User Management
-              </p>
+              
             </a>
           </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon far fa-edit"></i>
-              <p>
+              
                 Order Management
-              </p>
+              
             </a>
           </li>
         </ul>

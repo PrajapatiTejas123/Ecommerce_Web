@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\User;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        if(Auth::user()->roles == 0){
+            return view('dashboard');
+        }else{
+            $product = Product::latest()->paginate(4);
+            return view('welcome',compact('product'));
+        }
     }
+    
 }

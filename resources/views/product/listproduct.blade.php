@@ -26,7 +26,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-primary mt-2">
+            <div class="alert alert-success mt-2">
                {{ $message }}
             </div>
           </div>
@@ -49,7 +49,7 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                     <th>Image</th>
+                    <th>Image</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Sku</th>
@@ -140,6 +140,14 @@
                 </div>
             </div>
         </div>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+          $(".alert").delay(5000).slideUp(300);
+    });
+
+    </script>
 
  <script>
         function loadDeleteModal(id, name) {
@@ -171,6 +179,7 @@
             });
         }
     </script>
+
 
 
 @endsection

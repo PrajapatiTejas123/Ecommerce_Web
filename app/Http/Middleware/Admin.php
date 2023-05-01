@@ -20,11 +20,13 @@ class Admin
         {
             return $next($request);
         }
-        
-        else{
-            
-            return redirect()->back()->with('success','access denide');
-        }
-
+            return $this->unauthorized();
+    }
+    private function unauthorized($message = null){
+        // return response()->json([
+        //     'message' => $message ? $message : 'You are unauthorized to access this resource',
+        //     'success' => false
+        // ], 401);
+        return response(view('errors.403'));
     }
 }
