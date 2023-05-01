@@ -100,6 +100,8 @@
             });
         });
 
+        
+
         $('.js-addwish-detail').each(function(){
             var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 

@@ -11,7 +11,6 @@ class CategoryController extends Controller
     public function index() {
         $category = Category::all();
         $category = Category::latest()->paginate(2);
-        // $category = $category->latest()->paginate(2);
         return view('category.listcategory',compact('category'));
     }
 

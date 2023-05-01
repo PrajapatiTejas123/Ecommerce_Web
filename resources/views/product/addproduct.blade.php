@@ -165,5 +165,5 @@
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
-</script> -->
+</script>
 @endsection

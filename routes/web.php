@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Front\AddToCartController;
 use App\Http\Middleware\Admin;
 
 /*
@@ -24,12 +26,13 @@ Route::get('/', function () {
 //     return redirect('login');
 // });
 Route::get('/admin', function () {
-    return view('admin-lte.mainadmin');
+    return view('dashboard');
 });
 Route::get('admin/dashboard', function () {
     return view('dashboard');
 });
 
+// Admin Side Routes
 Route::prefix('admin')->group(function(){
 
     // Category Routes
@@ -56,6 +59,12 @@ Route::prefix('admin')->group(function(){
     Route::post('user/update/{id}',[UserController::class,'updateuser'])->name('updateuser')->middleware('admin');
     Route::post('user/delete/{id}',[UserController::class,'destroy'])->name('user/delete')->middleware('admin');
 });
+
+//User Side Routes
+// Route::prefix('user')->group(function(){
+    Route::get('product',[FrontController::class,'index'])->name('product');
+    Route::post('/addtocart',[AddToCartController::class,'addtocart'])->name('addtocart');
+// });
 
 Auth::routes();
 

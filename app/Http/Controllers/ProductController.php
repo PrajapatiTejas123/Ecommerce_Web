@@ -12,7 +12,7 @@ class ProductController extends Controller
 
     public function index() {
         $product = Product::all();
-        $product = Product::latest()->paginate(2);
+        $product = Product::latest()->paginate(3);
         return view('product.listproduct',compact('product'));
     }
 
@@ -26,7 +26,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'sku' => 'required',
-            'image' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048|dimensions:width=1200,height=1486',
             'price' => 'required',
             'qty' => 'required',
             'category_id' => 'required',
@@ -39,6 +39,8 @@ class ProductController extends Controller
             'description.required'=>'Please Enter Description',
             'sku.required'=>'Please Enter Model Number',
             'image.required'=>'Please Select Image',
+            'image.dimensions'=>'Please Select Valid Size Image',
+            'image.mimes'=>'Please Select Png,Jpg And Jpeg Image',
             'price.required'=>'Please Enter Price',
             'qty.required'=>'Please Enter Quantity',
             'category_id.required'=>'Please Select Category',
@@ -119,4 +121,5 @@ class ProductController extends Controller
         return redirect()->back()->with('success','Product delete Successfully.');
 
     }
+
 }

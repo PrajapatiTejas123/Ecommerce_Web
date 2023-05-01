@@ -88,7 +88,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="exampleInputPassword1">Confirm Password<span class="text-danger">*</span></label>
-                  <input type="password" name="confirm_password" class="form-control" value="{{old('confirm_password')}}" id="exampleInputPassword1" placeholder="Enter Your ConfirmPassword">
+                  <input type="password" name="confirm_password" class="form-control" id="exampleInputPassword1" placeholder="Enter Your ConfirmPassword">
                     @error('confirm_password')
                   <span class="text-danger">{{ $message }}</span>
                 @enderror
