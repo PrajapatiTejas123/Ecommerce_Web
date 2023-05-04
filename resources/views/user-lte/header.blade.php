@@ -1,4 +1,3 @@
-<!-- Header -->
     <header class="header-v4">
         <!-- Header desktop -->
         <div class="container-menu-desktop">
@@ -49,7 +48,7 @@
                 <nav class="limiter-menu-desktop container">
                     
                     <!-- Logo desktop -->       
-                    <a href="#" class="logo">
+                    <a href="{{url('')}}" class="logo">
                         <img src="{{asset('images/icons/logo-01.png')}}" alt="IMG-LOGO">
                     </a>
 
@@ -57,29 +56,14 @@
                     <div class="menu-desktop">
 
                         <ul class="main-menu">
-                            <li class="active-menu">
-                                <a href="{{url('/')}}">Home</a>
+                            <li class="{{ request()->is('/') ? 'active-menu' : ''}}">
+                                <a href="{{url('')}}">Home</a>
                             </li>
 
-                            <li class="active-menu">
+                            <li class="{{ request()->is('product') ? 'active-menu' : ''}}" >
                                 <a href="{{'product'}}">Product</a>
                             </li>
 
-                            <!-- <li class="label1" data-label1="hot">
-                                <a href="shoping-cart.html">Features</a>
-                            </li>
-
-                            <li>
-                                <a href="blog.html">Blog</a>
-                            </li> -->
-
-                            <li>
-                                <a href="about.html">About</a>
-                            </li>
-
-                            <li>
-                                <a href="contact.html">Contact</a>
-                            </li>
                             @if (Route::has('login'))
                             @auth
                             <li>
@@ -96,12 +80,20 @@
                         <li><a href="#"><i class="fa fa-user-o"></i> Change Password</a></li> -->
                          </ul>
                          @else
-                        <ul class="header-links pull-right">
-                            <li><a href="{{url('/userlogin')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Login</a></li>
-                        </ul>
-                        <ul class="header-links pull-right">
-                            <li><a href="{{url('register')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Register</a></li>
-                        </ul>
+                        <!-- <ul class="header-links pull-right">
+                            <li class="{{ request()->is('/userlogin') ? 'active-menu' : ''}}"><a href="{{url('/userlogin')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Login</a></li>
+                        </ul> -->
+                        <li class="{{ request()->is('userlogin') ? 'active-menu' : ''}}" >
+                                <a href="{{'userlogin'}}">Login</a>
+                            </li>
+                        </li>
+                        <!-- <ul class="header-links pull-right">
+                            <li class="{{ request()->routeIs('register*') ? 'active-menu' : 'simple' }}"><a href="{{url('register')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="font-family: poppins-medium; font-size: 14px;"> Register</a></li>
+                            
+                        </ul> -->
+                        <li class="{{ request()->is('register') ? 'active-menu' : ''}}" >
+                                <a href="{{'register'}}">Register</a>
+                            </li>
                         </li>
                             @endauth
                             @endif
@@ -112,8 +104,10 @@
                         <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
                             <i class="zmdi zmdi-search"></i>
                         </div>
-
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" data-notify="2">
+                        @php
+                        $cart = App\Http\Controllers\HomeController::getProductCount();
+                        @endphp
+                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart" id="cart" data-notify="{{ $cart }}">
                             <i class="zmdi zmdi-shopping-cart"></i>
                         </div>
 
@@ -322,3 +316,4 @@
             </div>
         </div>
     </div>
+

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Front\AddToCartController;
@@ -22,6 +23,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/',[ProductController::class,'indexuser'])->name('login');
+Route::get('/userlogin',[App\Http\Controllers\HomeController::class,'index'])->name('home');
+Route::get('/userlogin',function(){
+    return view('user-lte.userlogin');
+});
 // Route::get('/', function () {
 //     return redirect('login');
 // });
@@ -63,7 +69,8 @@ Route::prefix('admin')->group(function(){
 //User Side Routes
 // Route::prefix('user')->group(function(){
     Route::get('product',[FrontController::class,'index'])->name('product');
-    Route::post('/addtocart',[AddToCartController::class,'addtocart'])->name('addtocart');
+    Route::post('/addtocart/{id}',[AddToCartController::class,'addtocart'])->name('addtocart');
+    Route::post('getProductCount',[HomeController::class,'getProductCount'])->name('getProductCount');
 // });
 
 Auth::routes();

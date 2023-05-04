@@ -44,7 +44,7 @@
  <script src="{{ asset('userlte/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
  <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js') }}"></script>
     <script src="{{ asset('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js') }}"></script>
-    <script>
+<script>
  <script src="{{ asset('https://code.jquery.com/jquery-3.4.1.slim.min.js') }}" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js') }}" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js') }}" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -101,7 +101,6 @@
             var nameProduct = $(this).parent().parent().find('.js-name-b2').html();
             $(this).on('click', function(){
                 swal(nameProduct, "is added to wishlist !", "success");
-
                 $(this).addClass('js-addedwish-b2');
                 $(this).off('js-addedwish-b2');
             });
@@ -196,6 +195,30 @@
         });
     </script>
 
+<!--===============================================================================================-->
+<script>
+    var user = {{Auth::user()}};
+    //var user = (Auth()->user());
+    alert(user);
+    // if(user){
+    setInterval(function () {CartTotal()}, 2000);
+    // }
+    
+    function CartTotal() {
+        //alert('okkk');
+            $.ajax({
+                 url: "{{route('getProductCount')}}",
+                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  
+                type: 'POST',
+                _token: '{{ csrf_token() }}',
+                success: function(response)
+                {
+                    $("#cart").attr('data-notify', response);
+                }
+            });
+        } 
+</script>
 
 </body>
 </html>

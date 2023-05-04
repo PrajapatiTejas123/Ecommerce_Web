@@ -11,8 +11,7 @@ use Auth;
 class HomeController extends Controller
 {
     public function indexuser(Request $request){
-      
-       
+
         $product = Product::latest()->paginate(4);
         return view('welcome',compact('product'));
     

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\AddToCart;
+use Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -56,9 +58,18 @@ class FrontController extends Controller
             $sortby = $request->sortby;
             $products = $products->orderBy('price', $sortby); 
         }
+
+        $user = auth()->user();
+        if ($user !== null) {
+            $productschecked = AddToCart::where('user_id', $user->id)->pluck('product_id')->toArray();
+            $products = $products->latest()->paginate();
+        return view('user-lte.product',compact('category','products','color','productschecked'));
+            }
+            //$productsshow = Product::get();
         $products = $products->latest()->paginate();
         return view('user-lte.product',compact('category','products','color'));
     }
 
+    
    
 }

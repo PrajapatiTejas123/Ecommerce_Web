@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AddToCart extends Model
 {
     use HasFactory, SoftDeletes;
-
+    public $table = 'addtocarts';
     protected $fillable = [
         'user_id',
         'product_id',

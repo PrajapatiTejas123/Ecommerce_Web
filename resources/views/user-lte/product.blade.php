@@ -1,7 +1,7 @@
 @extends('user-lte.mainapp')
 @section('content')
 	<!-- Header -->
-	<meta name="csrf-token" content="{{ csrf_token() }}" />
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <style type="text/css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 .menu-link {
@@ -41,6 +41,12 @@
 .menu-active {
     background: slateblue;
     color: white;
+}
+.product-add-cart-active {
+	color: #717fe0;
+}
+.product-add-cart-deactive{
+	color: silver;
 }
 
 </style>
@@ -228,6 +234,7 @@
 			<div class="row isotope-grid">
 				@foreach($products as $key => $crud) 
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+					<input type="hidden" value="{{$crud->id}}" class="p_id">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
@@ -249,24 +256,23 @@
 								</span>
 							</div>
 
-							<!-- <div class="block2-txt-child2 flex-r p-t-3">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="{{asset('images/icons/icon-heart-01.png')}}" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{asset('images/icons/icon-heart-02.png')}}" alt="ICON">
-								</a>
-								<span class="stext-105 cl3">
-								<a href=""><i class="zmdi zmdi-shopping-cart" style="font-size: 28px; color: silver;"></i></a></span>
-							</div> -->
-							<!-- <input type="hidden" value="{{$crud->id}}" class="p_id"> -->
+							
+
 							<div class="block2-txt-child2 flex-col-l mt-2">
 								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
 									<img class="icon-heart1 dis-block trans-04" src="{{asset('images/icons/icon-heart-01.png')}}" alt="ICON">
 									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{asset('images/icons/icon-heart-02.png')}}" alt="ICON">
 								</a>
-
+								@if(Auth::user())
+								@if(in_array($crud->id,$productschecked))
 								<span class="stext-105 cl3 cart" id="cart">
-								<i class="zmdi zmdi-shopping-cart" style="font-size: 28px; color: silver; "></i>
+								<i class="zmdi zmdi-shopping-cart product-add-cart-active" onclick="AddToCart({{ $crud->id }}, this)" style="font-size: 28px;"></i>
 								</span>
+							  @else
+							  	<span class="stext-105 cl3 cart" id="cart">
+									<i class="zmdi zmdi-shopping-cart" onclick="AddToCart({{ $crud->id }}, this)" style="font-size: 28px;"></i>
+							  @endif
+							  @endif
 							</div>
 						</div>
 					</div>
@@ -471,12 +477,10 @@
 		});	
 </script>
 <script>
-    $(function(){
-       $('.cart').click(function() {
-       	// console.log(csrf_token());
-       //	alert('ok')
+    function AddToCart(id, e) {
+    	  //alert(id)
             $.ajax({
-                url: '/addtocart',
+                url: '{{ url('/addtocart') }}/' + id,
                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                   
                 type: 'POST',
@@ -484,62 +488,19 @@
                 _token: '{{ csrf_token() }}',
                 success: function(response)
                 {
-                    $('#something').html(response);
+                		
+                    if (response.success == true) {
+                     		swal("","Product Is Added In Cart !", "success");
+                		    $(e).addClass('product-add-cart-active');
+
+                     }else{
+                     		swal("","Product Is Already Added In Cart !", "info");
+                     }
                 }
             });
-            //alert('ok')
-       });
-    });    
+       }    
 </script>
-<!-- <script>
-$(document).ready(function()
-{
-    $(".cart").click(function(){
-    	var pid = $('.p_id').val();
-    	//alert(pid)
-    	let href = {{ route('addtocart') }};
-        $.ajax({
-            type:'post',
-            // url: "/addtocart",
-            url: href,
-            contentType:'application/json',
-            // data:{ id :pid},
-                    success: function(data){
-                //alert(data.msg);
-            }
-        });
-    });
-});
-</script>
-<script>
-	function loadDeleteModal(id) {
-            $('#cart').attr('onclick', `confirmDelete(${id})`);
-        }
 
-  function confirmDelete(id) {
-            $.ajax({
-                url: '{{ url('/addtocart') }}/' + id,
-                //console.log('tejas');
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                   _token: '{!! csrf_token() !!}',
-                 },
-                success: function (data) {
-                    setInterval('location.reload()', 1000);
-
-              $('#deleteCategory').modal('hide');
-                },
-                error: function (error) {
-                  
-                    // Error logic goes here..!
-                }
-            });
-        }
-</script>
- -->
 <script type="text/javascript">
   	function function1() {
   	var price = $("#price").val();
