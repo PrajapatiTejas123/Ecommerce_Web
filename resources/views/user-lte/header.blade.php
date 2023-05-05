@@ -83,8 +83,8 @@
                         <!-- <ul class="header-links pull-right">
                             <li class="{{ request()->is('/userlogin') ? 'active-menu' : ''}}"><a href="{{url('/userlogin')}}" class="flex-c-m trans-04 p-lr-25 mt-0" style="color: #333; font-family: poppins-medium; font-size: 14px;"> Login</a></li>
                         </ul> -->
-                        <li class="{{ request()->is('userlogin') ? 'active-menu' : ''}}" >
-                                <a href="{{'userlogin'}}">Login</a>
+                        <li class="{{ request()->is('login') ? 'active-menu' : ''}}" >
+                                <a href="{{'login'}}">Login</a>
                             </li>
                         </li>
                         <!-- <ul class="header-links pull-right">

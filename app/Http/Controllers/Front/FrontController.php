@@ -37,8 +37,8 @@ class FrontController extends Controller
         }
 
         //echo "<pre>"; print_r(get_class_methods($products)); exit;
-        $category = Category::all();
-
+        //$category = Category::all();
+        $category = Category::where('status',0)->get();
         $color = DB::table('products')
                  ->select('color', DB::raw('count(*) as total'))
                  ->groupBy('color')
@@ -62,11 +62,12 @@ class FrontController extends Controller
         $user = auth()->user();
         if ($user !== null) {
             $productschecked = AddToCart::where('user_id', $user->id)->pluck('product_id')->toArray();
-            $products = $products->latest()->paginate();
+            //$products = $products->latest()->paginate();
+             $products = Product::where('status',0)->latest()->get();
         return view('user-lte.product',compact('category','products','color','productschecked'));
             }
-            //$productsshow = Product::get();
-        $products = $products->latest()->paginate();
+        //$products = $products->latest()->paginate();
+        $products = Product::where('status',0)->latest()->get();
         return view('user-lte.product',compact('category','products','color'));
     }
 

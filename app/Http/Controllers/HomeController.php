@@ -30,6 +30,7 @@ class HomeController extends Controller
     {
 
         if(Auth::user()->roles == 0){
+           // echo "<pre>"; print_r('expression'); exit;
             return view('dashboard');
         }else{
             // $product = Product::latest()->paginate(4);

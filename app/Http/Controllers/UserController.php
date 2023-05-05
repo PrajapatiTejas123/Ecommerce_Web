@@ -44,7 +44,7 @@ class UserController extends Controller
                 'address.required' => 'Please enter your address',
                 'dob.required' => 'Please select your date of birth',
                 'gender.required' => 'Please select your gender',
-                'active.required' => 'Please select your active',
+                'active.required' => 'Please select your Status',
                 'roles.required' => 'Please select your roles',
                 'terms&condition.required' => 'Please accept your terms of service',
             ]);
@@ -99,7 +99,7 @@ class UserController extends Controller
                 'address.required' => 'Please enter address',
                 'dob.required' => 'Please select date of birth',
                 'gender.required' => 'Please select gender',
-                'active.required' => 'Please select active',
+                'active.required' => 'Please select Status',
                 'roles.required' => 'Please select roles',
                 'terms&condition.required' => 'Please accept your terms of service',
             ]);

@@ -197,12 +197,10 @@
 
 <!--===============================================================================================-->
 <script>
-    var user = {{Auth::user()}};
-    //var user = (Auth()->user());
-    alert(user);
-    // if(user){
-    setInterval(function () {CartTotal()}, 2000);
-    // }
+    var user = "{{ Auth::id() }}";
+    if(user){
+        setInterval(function () {CartTotal()}, 2000);
+    }
     
     function CartTotal() {
         //alert('okkk');

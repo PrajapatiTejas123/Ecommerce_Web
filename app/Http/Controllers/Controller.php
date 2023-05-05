@@ -22,6 +22,6 @@ class Controller extends BaseController
 
     public function adminlogin()
     {
-        return view('auth.login');
+        return view('user-lte.userlogin');
     }
 }

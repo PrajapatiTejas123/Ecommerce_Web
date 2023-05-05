@@ -7,6 +7,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Front\AddToCartController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Controller;
 use App\Http\Middleware\Admin;
 
 /*
@@ -19,51 +21,36 @@ use App\Http\Middleware\Admin;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/',[ProductController::class,'indexuser'])->name('login');
-Route::get('/userlogin',[App\Http\Controllers\HomeController::class,'index'])->name('home');
-Route::get('/userlogin',function(){
-    return view('user-lte.userlogin');
-});
-// Route::get('/', function () {
-//     return redirect('login');
-// });
-Route::get('/admin', function () {
-    return view('dashboard');
-});
-Route::get('admin/dashboard', function () {
-    return view('dashboard');
-});
 
 // Admin Side Routes
 Route::prefix('admin')->group(function(){
 
+    Route::get('/login',[Controller::class,'adminlogin'])->name('admin.login');
+    Route::get('dashboard',[Controller::class,'dashboard'])->middleware('admin','auth');
+
     // Category Routes
-    Route::get('category/add',[CategoryController::class,'addcategory'])->name('add');
-    Route::post('category/insertcategory',[CategoryController::class,'store'])->name('insertcategory');
-    Route::get('category/list',[CategoryController::class,'index'])->name('list');
-    Route::get('category/edit/{id}',[CategoryController::class,'edit'])->name('edit');
-    Route::post('category/update/{id}',[CategoryController::class,'update'])->name('update');
-    Route::post('category/delete/{id}',[CategoryController::class,'destroy'])->name('delete');
+    Route::get('category/add',[CategoryController::class,'addcategory'])->name('add')->middleware('auth');
+    Route::post('category/insertcategory',[CategoryController::class,'store'])->name('insertcategory')->middleware('auth');
+    Route::get('category/list',[CategoryController::class,'index'])->name('list')->middleware('auth');
+    Route::get('category/edit/{id}',[CategoryController::class,'edit'])->name('edit')->middleware('auth');
+    Route::post('category/update/{id}',[CategoryController::class,'update'])->name('update')->middleware('auth');
+    Route::post('category/delete/{id}',[CategoryController::class,'destroy'])->name('delete')->middleware('auth');
 
     //Product Routes
-    Route::get('product/add',[ProductController::class,'addproduct'])->name('product/add');
-    Route::post('product/insertproduct',[ProductController::class,'store'])->name('insertproduct');
-    Route::get('product/list',[ProductController::class,'index'])->name('product/list');
-    Route::get('product/editproduct/{id}',[ProductController::class,'edit'])->name('editproduct');
-    Route::post('product/update/{id}',[ProductController::class,'update'])->name('updateproduct');
-    Route::post('product/delete/{id}',[ProductController::class,'destroy'])->name('product/delete');
+    Route::get('product/add',[ProductController::class,'addproduct'])->name('product/add')->middleware('auth');
+    Route::post('product/insertproduct',[ProductController::class,'store'])->name('insertproduct')->middleware('auth');
+    Route::get('product/list',[ProductController::class,'index'])->name('product/list')->middleware('auth');
+    Route::get('product/editproduct/{id}',[ProductController::class,'edit'])->name('editproduct')->middleware('auth');
+    Route::post('product/update/{id}',[ProductController::class,'update'])->name('updateproduct')->middleware('auth');
+    Route::post('product/delete/{id}',[ProductController::class,'destroy'])->name('product/delete')->middleware('auth');
 
     //userroute
     Route::get('user/add',[UserController::class,'adduser'])->name('add')->middleware('admin','auth');
     Route::post('user/insertuser',[UserController::class,'store'])->name('insertuser')->middleware('admin','auth');
-    Route::get('user/list',[UserController::class,'show'])->name('user/list','auth');
-    Route::get('user/edit/{id}',[UserController::class,'edituser'])->name('edituser')->middleware('admin');
-    Route::post('user/update/{id}',[UserController::class,'updateuser'])->name('updateuser')->middleware('admin');
-    Route::post('user/delete/{id}',[UserController::class,'destroy'])->name('user/delete')->middleware('admin');
+    Route::get('user/list',[UserController::class,'show'])->name('user/list')->middleware('auth');
+    Route::get('user/edit/{id}',[UserController::class,'edituser'])->name('edituser')->middleware('auth');
+    Route::post('user/update/{id}',[UserController::class,'updateuser'])->name('updateuser')->middleware('auth');
+    Route::post('user/delete/{id}',[UserController::class,'destroy'])->name('user/delete')->middleware('auth');
 });
 
 //User Side Routes
@@ -71,8 +58,9 @@ Route::prefix('admin')->group(function(){
     Route::get('product',[FrontController::class,'index'])->name('product');
     Route::post('/addtocart/{id}',[AddToCartController::class,'addtocart'])->name('addtocart');
     Route::post('getProductCount',[HomeController::class,'getProductCount'])->name('getProductCount');
+    Route::post('logout',[LoginController::class,'logout'])->name('logout');
+    Route::get('/',[ProductController::class,'indexuser'])->name('home');
+
 // });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

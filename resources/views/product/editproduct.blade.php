@@ -8,7 +8,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{'/admin/dashboard'}}">Home</a></li>
               <li class="breadcrumb-item active">Edit Product</li>
             </ol>
           </div>
@@ -67,6 +67,7 @@
                 <div class="form-group">
                   <label for="exampleInputPassword1">Image</label>
                   <input type="file" value="{{old('image',$product->image)}}" name="image" class="form-control" id="image" placeholder="Enter Image">
+                  <img src="{{asset('image')}}/{{ $product->image }}" class="mb-0 mt-2" style="width:80px;height:90px;">
                 @error('image')
           			   <span class="text-danger">{{ $message }}</span>
           			@enderror

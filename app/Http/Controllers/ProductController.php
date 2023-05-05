@@ -12,7 +12,7 @@ use Auth;
 class ProductController extends Controller
 {
    public function indexuser(){
-         $product = Product::latest()->paginate(4);
+         $product = Product::where('status',0)->limit(4)->latest()->get();
         return view('welcome',compact('product'));
    }
 
@@ -33,11 +33,11 @@ class ProductController extends Controller
             'description' => 'required',
             'sku' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048|dimensions:width=1200,height=1486',
-            'price' => 'required',
-            'qty' => 'required',
+            'price' => 'required|numeric',
+            'qty' => 'required|numeric',
             'category_id' => 'required',
-            'discount' => 'required',
-            'color' => 'required',
+            'discount' => 'required|numeric',
+            'color' => 'required|regex:/^[a-zA-Z]+$/u',
             'status' => 'required',
         ],
         [
@@ -48,10 +48,14 @@ class ProductController extends Controller
             'image.dimensions'=>'Please Select Valid Size Image',
             'image.mimes'=>'Please Select Png,Jpg And Jpeg Image',
             'price.required'=>'Please Enter Price',
-            'qty.required'=>'Please Enter Quantity',
+            'price.numeric'=>'Please Enter Number Only',
+            'qty.required'=>'Please Enter Quantity', 
+            'qty.numeric'=>'Please Enter Number Only',
             'category_id.required'=>'Please Select Category',
             'discount.required'=>'Please Enter Discount',
+            'discount.numeric'=>'Please Enter Number Only',
             'color.required'=>'Please Enter Color',
+            'color.regex'=>'Please Enter String Only',
             'status.required'=>'Please Select Status',
         ]);
             $product = new Product;
@@ -84,11 +88,11 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'sku' => 'required',
-            'price' => 'required',
-            'qty' => 'required',
+            'price' => 'required|numeric',
+            'qty' => 'required|numeric',
             'category_id' => 'required',
-            'discount' => 'required',
-            'color' => 'required',
+            'discount' => 'required|numeric',
+            'color' => 'required|regex:/^[a-zA-Z]+$/u',
             'status' => 'required',
         ],
         [
@@ -96,10 +100,14 @@ class ProductController extends Controller
             'description.required'=>'Please Enter Description',
             'sku.required'=>'Please Enter Model Number',
             'price.required'=>'Please Enter Price',
+            'price.numeric'=>'Please Enter Number Only',
             'qty.required'=>'Please Enter Quantity',
+            'qty.numeric'=>'Please Enter Number Only',
             'category_id.required'=>'Please Select Category',
             'discount.required'=>'Please Enter Discount',
+            'discount.numeric'=>'Please Enter Number Only',
             'color.required'=>'Please Enter Color',
+            'color.regex'=>'Please Enter String Only',
             'status.required'=>'Please Select Status',
         ]);
             $product->title = $request->title;
