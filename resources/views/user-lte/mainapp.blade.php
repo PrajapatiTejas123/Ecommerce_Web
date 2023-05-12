@@ -38,6 +38,7 @@
 
     <body>
     @include('user-lte.header')
+    
     @yield('content')
 
     @include('user-lte.footer')
@@ -147,8 +148,8 @@
         });
     </script>
 <!--===============================================================================================-->
-    <script src="{{ asset('userlte/js/main.js') }}"></script>
-
+<script src="{{ asset('userlte/js/main.js') }}"></script>
+<!-- 
 <script type="text/javascript">
     var user_id = "{{ Auth::id() }}";
         $(document).ready(function(){
@@ -193,13 +194,13 @@
                 });
             });
         });
-    </script>
+    </script> -->
 
 <!--===============================================================================================-->
 <script>
     var user = "{{ Auth::id() }}";
     if(user){
-        setInterval(function () {CartTotal()}, 2000);
+        //setInterval(function () {CartTotal()}, 2000);
     }
     
     function CartTotal() {
@@ -216,6 +217,64 @@
                 }
             });
         } 
+</script>
+<!--===============================================================================================-->
+<script>
+    function AddToFavourite(id, e) {
+          //alert(id)
+            $.ajax({
+                url: '{{ url('/addtofavourite') }}/' + id,
+                         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  
+                type: 'POST',
+                //data: { id: },
+                _token: '{{ csrf_token() }}',
+                success: function(response)
+                {
+                    if (response.success == true) {
+                            swal("","Product Is Added In Favourite List !", "success");
+                            $("#fav").attr('data-notify', response.totalfav);
+                            $(e).attr('src', "images/icons/icon-heart-02.png");
+                             
+
+                     }else{
+                            swal("","Product Is Already Added In Favourite List !", "info"); 
+                            $(e).html('<img class="sdis-block trans-04" src="images/icons/icon-heart-02.png" alt="ICON" id="fill">');
+                     }
+                }
+            });
+       }    
+</script>
+
+<!--===============================================================================================-->
+
+<script>
+    function UpdateQuantity(id, e, type) {
+        var quantity = $('#quantity_' +id).val();
+        if (type == 'add') {
+            quantity++;
+        } else if (type == 'less') {
+            quantity--;
+        }
+            $.ajax({
+                url: '{{ url('/updatecart') }}/' + id,
+                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  
+                type: 'POST',
+                data: {
+                       quantity: quantity
+                       },
+                _token: '{{ csrf_token() }}',
+                success: function(response)
+                {
+                        
+                    if (response.success == true) {
+                        $('#total_' + id).html(response.total);
+                        $("#maintotal").html(response.maintotal);
+                     }
+                }
+            });
+       }    
 </script>
 
 </body>

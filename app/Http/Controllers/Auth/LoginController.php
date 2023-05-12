@@ -35,18 +35,32 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     protected function authenticated(Request $request, $user)
     {
-        //if(Auth::user()->roles == 0)
         $user = User::where('email',$request->email)->first();
-        if( $user->roles == 0 && $user->active == 0){
-            return redirect()->intended('admin/dashboard');
-        } else if($user->roles == 1 && $user->active == 1){
+        
+        // if( $user->roles == 0 && $user->active == 0){
+        //     //echo "<pre>"; print_r($user->roles); 
+        //      return redirect()->intended('admin/dashboard');
+        // } else if($user->roles == 1 && $user->active == 1){
+        //     $this->logout($request);
+        //     return $this->unauthorized();
+        // }else if($user->roles == 0 && $user->active == 1){
+        //     //echo "<pre>"; print_r('expression'); exit;
+        //     $this->logout($request);
+        //     return $this->unauthorized();
+        // }else{
+        //      return redirect()->intended('/');
+        // }
+
+        if ($user->active == 1) {
             $this->logout($request);
             return $this->unauthorized();
         }else{
-             return redirect()->intended('/');
-        
+            if($user->roles == 0){
+               return redirect()->route('dashboard');
+            }else{
+                return redirect()->route('home');
+            }
         }
-    
     }
 
     /**

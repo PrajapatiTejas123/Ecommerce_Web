@@ -26,7 +26,7 @@ use App\Http\Middleware\Admin;
 Route::prefix('admin')->group(function(){
 
     Route::get('/login',[Controller::class,'adminlogin'])->name('admin.login');
-    Route::get('dashboard',[Controller::class,'dashboard'])->middleware('admin','auth');
+    Route::get('dashboard',[Controller::class,'dashboard'])->middleware('admin','auth')->name('dashboard');
 
     // Category Routes
     Route::get('category/add',[CategoryController::class,'addcategory'])->name('add')->middleware('auth');
@@ -57,9 +57,13 @@ Route::prefix('admin')->group(function(){
 // Route::prefix('user')->group(function(){
     Route::get('product',[FrontController::class,'index'])->name('product');
     Route::post('/addtocart/{id}',[AddToCartController::class,'addtocart'])->name('addtocart');
+    Route::post('/addtofavourite/{id}',[AddToCartController::class,'addtofavourite'])->name('addtofavourite');
     Route::post('getProductCount',[HomeController::class,'getProductCount'])->name('getProductCount');
+    Route::post('getfavcount',[HomeController::class,'getfavcount'])->name('getfavcount');
     Route::post('logout',[LoginController::class,'logout'])->name('logout');
     Route::get('/',[ProductController::class,'indexuser'])->name('home');
+    Route::get('viewcart',[FrontController::class,'viewcart'])->name('viewcart');
+    Route::post('updatecart/{id}',[FrontController::class,'updatecart'])->name('updatecart');
 
 // });
 

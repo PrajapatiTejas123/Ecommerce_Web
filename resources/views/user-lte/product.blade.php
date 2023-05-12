@@ -48,6 +48,9 @@
 .product-add-cart-deactive{
 	color: silver;
 }
+.btn-addwish-b2 {
+	hover: display-block;
+}
 
 </style>
 	<!-- Product -->
@@ -259,9 +262,16 @@
 							
 
 							<div class="block2-txt-child2 flex-col-l mt-2">
-								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-									<img class="icon-heart1 dis-block trans-04" src="{{asset('images/icons/icon-heart-01.png')}}" alt="ICON">
-									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="{{asset('images/icons/icon-heart-02.png')}}" alt="ICON">
+								
+								<a href="#" class="dis-block pos-relative js-addwish-b2">
+								@if(Auth::user())
+								@if(in_array($crud->id,$favcheck))
+
+									<img class=" dis-block trans-04" onclick="AddToFavourite({{ $crud->id }}, this)" src="{{asset('images/icons/icon-heart-02.png')}}" alt="ICON" id="fill">
+								@else
+									<img class="dis-block trans-04" onclick="AddToFavourite({{ $crud->id }}, this)" src="{{asset('images/icons/icon-heart-01.png')}}" alt="ICON" id="blank">
+								@endif
+								@endif
 								</a>
 								@if(Auth::user())
 								@if(in_array($crud->id,$productschecked))
@@ -492,6 +502,7 @@
                     if (response.success == true) {
                      		swal("","Product Is Added In Cart !", "success");
                 		    $(e).addClass('product-add-cart-active');
+                		    $("#viewcart").append(response.html);
 
                      }else{
                      		swal("","Product Is Already Added In Cart !", "info");
@@ -532,5 +543,6 @@
   	$("#sortby").val(price1);
 	}
 
+//btn-addwish-b2       icon-heart1 
 </script>
 @endsection

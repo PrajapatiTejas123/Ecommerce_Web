@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\AddToCart;
+use App\Models\Productwishlist;
 use Auth;
 
 class HomeController extends Controller
@@ -46,8 +47,29 @@ class HomeController extends Controller
         $addcart = 0;
         if ($user !== null) {
             $addcart = AddToCart::where('user_id', $user->id)->count();
+            //echo "<pre>"; print_r($html); exit;
         }
         return $addcart;
+    }
+
+    static function getfavcount(){
+        $user = auth()->user();
+        $addfav = 0;
+        if ($user !== null) {
+            $addfav = Productwishlist::where('user_id', $user->id)->count();
+        }
+        return $addfav;
+    }
+
+    static function getCartProduct(){
+        $user = auth()->user();
+        if ($user !== null) {
+            $data = AddToCart::where('user_id', Auth::user()->id)->get();
+            return $data;   
+        }else{
+            return [];
+        }
+         
     }
     
 }
