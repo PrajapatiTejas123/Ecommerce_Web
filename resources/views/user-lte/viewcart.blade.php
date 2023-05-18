@@ -45,7 +45,7 @@
 										</div>
 									</td>
 									<td class="column-2">{{$crud->product->title}}</td>
-									<td class="column-3">{{$crud->product->price}}</td>
+									<td class="column-3">${{$crud->product->price}}</td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" onclick="UpdateQuantity({{ $crud->id }}, this, 'less')">
@@ -59,7 +59,7 @@
 											</div>
 										</div>
 									</td>
-									<td class="column-5" id="total_{{$crud->id}}">{{(int)$crud->product->price * (int)$crud->quantity;}}</td>
+									<td class="column-5" id="total_{{$crud->id}}">${{(int)$crud->product->price * (int)$crud->quantity;}}</td>
 								</tr>
 								@endforeach
             					@else
@@ -85,7 +85,7 @@
 
 							<div class="size-209 p-t-1">
 								<span class="mtext-110 cl2" id="maintotal">
-									{{$grandtotal}}
+									${{$grandtotal}}
 								</span>
 							</div>
 						</div>

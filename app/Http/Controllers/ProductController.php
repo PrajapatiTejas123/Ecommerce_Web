@@ -161,4 +161,13 @@ class ProductController extends Controller
             }
         }
     }
+
+    public function productdetails(Request $request,$id){
+        $productdetails = Product::find($id);
+        $html = view('user-lte.prodetailsprepared',compact('productdetails'))->render();
+        return response()->json([
+                    'html' => $html,
+                    'success' => true,
+                ]);
+    }
 }

@@ -64,6 +64,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/',[ProductController::class,'indexuser'])->name('home');
     Route::get('viewcart',[FrontController::class,'viewcart'])->name('viewcart');
     Route::post('updatecart/{id}',[FrontController::class,'updatecart'])->name('updatecart');
+    Route::post('productdetails/{id}',[ProductController::class,'productdetails'])->name('productdetails');
 
 // });
 

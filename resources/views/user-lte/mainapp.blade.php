@@ -200,7 +200,7 @@
 <script>
     var user = "{{ Auth::id() }}";
     if(user){
-        //setInterval(function () {CartTotal()}, 2000);
+        setInterval(function () {CartTotal()}, 2000);
     }
     
     function CartTotal() {
@@ -269,8 +269,31 @@
                 {
                         
                     if (response.success == true) {
-                        $('#total_' + id).html(response.total);
-                        $("#maintotal").html(response.maintotal);
+                        $('#total_' + id).html('$'+response.total);
+                        $("#maintotal").html('$'+response.maintotal);
+                     }
+                }
+            });
+       }    
+</script>
+
+<!--===============================================================================================-->
+
+<script>
+    function ProductDetails(id, e,) {
+        //alert(id)
+            $.ajax({
+                url: '{{ url('/productdetails') }}/' + id,
+                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                  
+                type: 'POST',
+                // data: {
+                //        },
+                _token: '{{ csrf_token() }}',
+                success: function(response)
+                {       
+                    if (response.success == true) {
+                       $("#prodetails").html(response.html);
                      }
                 }
             });
