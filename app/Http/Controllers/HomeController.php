@@ -57,7 +57,7 @@ class HomeController extends Controller
         $addfav = 0;
         if ($user !== null) {
             $addfav = Productwishlist::where('user_id', $user->id)->count();
-        }
+        }   
         return $addfav;
     }
 

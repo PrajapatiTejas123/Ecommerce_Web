@@ -12,7 +12,7 @@ use Auth;
 class ProductController extends Controller
 {
    public function indexuser(){
-         $product = Product::where('status',0)->limit(4)->latest()->get();
+        $product = Product::where('status',0)->limit(4)->latest()->get();
         return view('welcome',compact('product'));
    }
 
